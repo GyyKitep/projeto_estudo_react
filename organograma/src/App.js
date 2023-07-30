@@ -63,9 +63,18 @@ function App() {
     );
   }
 
-  function cadastrarTime(novoTime){
-    console.log("Nome:" + novoTime.nome + " cor:" + novoTime.cor)
-    setTimes([...times, { ...novoTime, id: uuidv4()}])
+  function cadastrarTime(novoTime) {
+    console.log("Nome:" + novoTime.nome + " cor:" + novoTime.cor);
+    setTimes([...times, { ...novoTime, id: uuidv4() }]);
+  }
+
+  function resolverFavorito(id) {
+    setColaboradores(
+      colaboradores.map((colaborador) => {
+        if (colaborador.id === id) colaborador.favorito = !colaborador.favorito;
+        return colaborador;
+      })
+    );
   }
 
   return (
@@ -82,6 +91,7 @@ function App() {
         <h1>Minha organização</h1>
         {times.map((time, indice) => (
           <Time
+            aoFavoritar={resolverFavorito} 
             key={indice}
             time={time}
             colaboradores={colaboradores.filter(
